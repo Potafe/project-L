@@ -1,0 +1,26 @@
+// Project-L Architecture (Phase 1-3)
+digraph {
+	rankdir=LR size=8
+	CLI [label="Terminal CLI (L status)" color=lightblue shape=box style=filled]
+	Git [label="Git Context
+(status, diff, branch)" color=lightgrey shape=ellipse]
+	Hist [label="Terminal History
+(last N commands)" color=lightgrey shape=ellipse]
+	Store [label="Local Storage
+(SQLite / JSON + Embeddings)" color=lightyellow shape=cylinder]
+	LLM [label="LLM (gpt-oss / Ollama)" color=lightpink shape=box style=filled]
+	Summary [label="Summary + Next Steps" color=lightgreen shape=box style=filled]
+	CLI -> Git
+	CLI -> Hist
+	Git -> Store
+	Hist -> Store
+	Store -> LLM
+	LLM -> Summary
+	CLI -> Summary
+	Editor [label="Editor Context
+(VSCode / Neovim)" color=lightgrey shape=ellipse]
+	Editor -> Store
+	Browser [label="Browser Context
+(last N tabs metadata)" color=lightgrey shape=ellipse]
+	Browser -> Store
+}
