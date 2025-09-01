@@ -6,13 +6,7 @@
 ## Table of Contents
 
 1. [Overview](#overview)
-2. [Development Phases](#development-phases)
-    - [Phase 1: Core CLI MVP](#phase-1-core-cli-mvp)
-    - [Phase 2: Editor Integration](#phase-2-editor-integration)
-    - [Phase 3: Browser Intelligence](#phase-3-browser-intelligence)
-    - [Phase 4: Multi-Modal Context Linking](#phase-4-multi-modal-context-linking)
-    - [Phase 5: Smart Recommendations](#phase-5-smart-recommendations-agentic-layer)
-    - [Phase 6: Team Collaboration Mode](#phase-6-team-collaboration-mode)
+2. [Development Phases](#phases-planned)
 3. [Technology Stack](#technology-stack)
 4. [Architecture Overview](#phase-13-architecture)
 ---
