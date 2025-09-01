@@ -14,9 +14,7 @@
     - [Phase 5: Smart Recommendations](#phase-5-smart-recommendations-agentic-layer)
     - [Phase 6: Team Collaboration Mode](#phase-6-team-collaboration-mode)
 3. [Technology Stack](#technology-stack)
-4. [Architecture Overview](#architecture-overview)
-5. [Getting Started](#getting-started)
-
+4. [Architecture Overview](#phase-13-architecture)
 ---
 
 ## Overview
