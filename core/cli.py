@@ -19,29 +19,32 @@ def git_history():
 
 def terminal_history():
     """
-    Returns the last 10 commands from the user's shell history.
-    Supports bash and zsh on Windows (e.g., WSL, Git Bash, or Cygwin).
-    Falls back to searching for .bash_history or .zsh_history in the user's home directory.
+    Returns the last 10 commands from each supported shell history file,
+    separated by shell type.
+    Supports bash, zsh, Windows CMD, and PowerShell.
     """
     home = os.path.expanduser("~")
-    history_files = [".bash_history", ".zsh_history"]
-    history_path = None
+    history_sources = {
+        "Bash": os.path.join(home, ".bash_history"),
+        "Zsh": os.path.join(home, ".zsh_history"),
+        "PowerShell": os.path.join(
+            home, "AppData", "Roaming", "Microsoft", "Windows", "PowerShell", "PSReadLine", "ConsoleHost_history.txt"
+        ),
+        "CMD": os.path.join(home, "AppData", "Roaming", "cmd_history.txt"),
+    }
 
-    for fname in history_files:
-        candidate = os.path.join(home, fname)
-        if os.path.exists(candidate):
-            history_path = candidate
-            break
-
-    if not history_path:
-        return ["No shell history file found."]
-
-    try:
-        with open(history_path, "r", encoding="utf-8", errors="ignore") as f:
-            lines = f.readlines()
-            return [line.strip() for line in lines[-10:] if line.strip()]
-    except Exception as e:
-        return [f"Error reading history: {e}"]
+    all_histories = {}
+    for shell, path in history_sources.items():
+        if os.path.exists(path):
+            try:
+                with open(path, "r", encoding="utf-8", errors="ignore") as f:
+                    lines = [line.strip() for line in f if line.strip()]
+                    all_histories[shell] = lines[-10:] if lines else ["(No commands found)"]
+            except Exception as e:
+                all_histories[shell] = [f"(Error reading history: {e})"]
+        else:
+            all_histories[shell] = ["(No history file found)"]
+    return all_histories
 
 def main():
     print("=== Git Context ===")
@@ -50,10 +53,12 @@ def main():
     print("Status:\n" + (git_info['status'] or "Clean"))
     print("Diff stat:\n" + (git_info['diff_stat'] or "No changes"))
 
-    print("\n=== Last 10 Terminal Commands ===")
-    history = terminal_history()
-    for i, cmd in enumerate(history, 1):
-        print(f"{i}: {cmd}")
+    print("\n=== Last 10 Terminal Commands by Shell ===")
+    histories = terminal_history()
+    for shell, commands in histories.items():
+        print(f"\n--- {shell} ---")
+        for i, cmd in enumerate(commands, 1):
+            print(f"{i}: {cmd}")
 
 if __name__ == "__main__":
     typer.run(main)
