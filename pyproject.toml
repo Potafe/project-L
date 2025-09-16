@@ -1,0 +1,13 @@
+[project]
+name = "project-l"
+version = "0.1.0"
+description = "Terminal status tool"
+dependencies = [
+    "typer"
+]
+
+[project.scripts]
+lstatus = "core.cli:main"
+
+[tool.setuptools]
+packages = ["core"]
